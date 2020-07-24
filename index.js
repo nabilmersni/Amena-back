@@ -12,6 +12,7 @@ const cors = require('cors');
 
 const userController = require('./controllers/userController');
 const adminController = require('./controllers/adminController');
+const postController = require('./controllers/postController');
 
 
 
@@ -32,6 +33,49 @@ app.use(cors());
 
 app.use('/user', userController);
 app.use('/admin', adminController);
+app.use('/post', postController);
+
+function today() {
+    var today = new Date();
+    var dd = today.getDate();
+
+    var mm = today.getMonth() + 1;
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+
+    switch(mm){
+        case 1: mm = "January";
+            break;
+        case 2: mm = "February";
+            break;
+        case 3: mm = "March";
+            break;
+        case 4: mm = "April";
+            break;
+        case 5: mm = "May";
+            break;
+        case 6: mm = "June"; 
+            break;
+        case 7: mm = "July";
+            break;
+        case 8: mm = "August";
+            break;
+        case 9: mm = "September";
+            break;
+        case 10: mm = "October";
+            break;
+        case 11: mm = "November";
+            break;
+        case 12: mm = "December";
+            break;
+        }
+    
+    today = dd + '-' + mm + '-' + yyyy;
+
+    return today;
+}
 
 
 app.post('/post/add', multipartMiddleware, (req, res) => {
@@ -45,7 +89,7 @@ app.post('/post/add', multipartMiddleware, (req, res) => {
 
         let path = req.files.image.path;
         const ext = path.substr(path.indexOf('.'));
-        const newName = "test";
+        const newName = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         fs.renameSync(path, "public/" + newName + ext);
 
 
@@ -53,7 +97,9 @@ app.post('/post/add', multipartMiddleware, (req, res) => {
         let post = new Post({
             title: data._title,
             userId: data._userId,
+            userFullname: data._userFullname,
             amount: data._amount,
+            date: today(),
             type: data._type,
             description: data._description,
             follower: null,

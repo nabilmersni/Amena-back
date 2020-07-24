@@ -8,7 +8,13 @@ const  PostSchema = new mongoose.Schema({
     userId : {
         type: String,
     },
+    userFullname : {
+        type: String,
+    },
     amount : {
+        type: String,
+    },
+    date : {
         type: String,
     },
     type : {
