@@ -46,4 +46,21 @@ app.get('/detail/:id', async (req,res) =>{
     }
 })
 
+app.delete('/delete/:postId', (req,res) =>{
+
+    let id = req.params.postId;
+
+    Post.findOneAndRemove({_id:id})
+    .then((post) => {
+        if(!post){
+            res.status(400).send({message: "post not found !"})
+        }else{
+            res.status(200).send(post);
+        }
+    })
+    .catch(()=>{
+        res.status(400).send({message: "error !"})
+    })
+})
+
 module.exports = app;

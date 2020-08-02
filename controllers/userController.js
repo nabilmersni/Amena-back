@@ -40,7 +40,7 @@ app.get('/one/:idUser',async (req,res) =>{
 
     try {
         let id = req.params.idUser;
-        let user = await  User.findOne({role: "user", _id:id});
+        let user = await  User.findOne({_id:id});
 
         if(!user){
             res.status(400).send({message: "user not found !"})
@@ -137,8 +137,8 @@ app.post('/login', (req,res) =>{
 
 })
 
-//delete
 
+//delete
 app.delete('/delete/:idUser', (req,res) =>{
 
     let id = req.params.idUser;
@@ -156,7 +156,8 @@ app.delete('/delete/:idUser', (req,res) =>{
     })
 })
 
-//patch
+
+
 //update state
 app.patch('/update-state/:idUser', (req,res) =>{
 
@@ -177,8 +178,9 @@ app.patch('/update-state/:idUser', (req,res) =>{
     })
 })
 
-//update all info
 
+/*
+//update all info
 app.patch('/update/:idUser', (req, res) => {
 
     let id = req.params.idUser;
@@ -211,7 +213,7 @@ app.patch('/update/:idUser', (req, res) => {
         res.status(400).send({message: "error !"})
     })
 });
-
+*/
 
 
 module.exports = app;

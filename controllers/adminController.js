@@ -21,19 +21,22 @@ app.post('/register', (req, res) => {
 
     let salt = bcrypt.genSaltSync(10);
     let hashedpassword = bcrypt.hashSync(data._password, salt);
+
     //2 - creation d'un object <= data
     let user = new User({
-        firstname: data._firstname,
-        lastname: data._lastname,
+        fullname: data._fullname,
+        username: data._username,
         email: data._email,
         phone: data._phone,
         password: hashedpassword,
         role: "admin",
-        etat: true
+        etat: false
     });
+    console.log(user);
+
     user.save()
         .then(() => {
-            res.status(200).send({ message: "admin registred succefully !" });
+            res.status(200).send({ message: "Admin registred succefully !" });
         })
         .catch((e) => {
             res.status(400).send(e);
