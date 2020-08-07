@@ -89,7 +89,7 @@ app.post('/post/add', multipartMiddleware, (req, res) => {
 
         let path = req.files.image.path;
         const ext = path.substr(path.indexOf('.'));
-        const newName = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        const newName = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)+Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         fs.renameSync(path, "public/" + newName + ext);
 
 
